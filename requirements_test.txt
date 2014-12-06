@@ -1,0 +1,5 @@
+pep8==1.5.7
+ipdb==0.8
+mock==1.0.1
+pytest==2.6.4
+pytest-cov==1.8.1

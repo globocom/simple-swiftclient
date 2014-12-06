@@ -4,6 +4,7 @@ import unittest
 
 from simple_swiftclient import utils
 
+
 class TestUtils(unittest.TestCase):
 
     def setUp(self):
@@ -65,4 +66,3 @@ class TestUtils(unittest.TestCase):
 
         expected_str_fh = "<open file 'tests/fixtures/image.jpg'"
         self.assertIn(expected_str_fh, str(fh))
-

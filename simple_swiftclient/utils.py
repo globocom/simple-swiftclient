@@ -3,6 +3,7 @@ import mimetypes
 from os import walk, fstat
 from os.path import isfile, isdir, join
 
+
 def list_dir(path):
     objs = []
     dir_markers = []
@@ -18,6 +19,7 @@ def list_dir(path):
                 objs.extend([join(_dir, _f) for _f in _fs])
 
     return objs
+
 
 def get_file_infos(filename):
 

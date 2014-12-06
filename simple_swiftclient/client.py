@@ -5,8 +5,10 @@ import urllib2
 
 from simple_swiftclient import utils
 
+
 class ClientException(Exception):
     pass
+
 
 class Client(object):
 

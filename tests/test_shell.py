@@ -4,6 +4,7 @@ from mock import patch
 
 from simple_swiftclient import shell
 
+
 class TestShell(unittest.TestCase):
 
     def setUp(self):
