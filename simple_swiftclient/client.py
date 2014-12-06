@@ -1,6 +1,9 @@
-import urllib2
-import json
+from __future__ import print_function
 
+import json
+import urllib2
+
+from simple_swiftclient import utils
 
 class ClientException(Exception):
     pass
@@ -13,9 +16,14 @@ class Client(object):
         self.password = opts.get('password')
         self.tenant_name = opts.get('tenant_name')
 
-        self.token = self.get_token()
+        self._token = None
+        self._service_catalog = None
+        self._user = None
+        self._metadata = None
 
-    def get_token(self):
+        self._authenticate()
+
+    def _authenticate(self):
 
         data = json.dumps({
             "auth": {
@@ -35,11 +43,59 @@ class Client(object):
 
         try:
             json_resp = json.loads(resp)
-            token = json_resp['access']['token']['id']
         except ValueError:
             raise ClientException('')
 
         conn.close()
 
-        return token
+        self._token = json_resp.get('access').get('token')
+        self._service_catalog = json_resp.get('access').get('serviceCatalog')
+        self._user = json_resp.get('access').get('user')
+        self._metadata = json_resp.get('access').get('metadata')
 
+    def get_token(self):
+        return self._token.get('id')
+
+    def get_storage_url(self):
+        for service in self._service_catalog:
+            if service.get('type') == 'object-store':
+                endpoints = service.get('endpoints')
+                return endpoints[0].get('adminURL')
+
+        return None
+
+    def upload(self, container, path, verbose=True):
+        if path[-1] == '/':
+            path = path[:-1]
+
+        files = utils.list_dir(path)
+
+        for filename in files:
+
+            file_fullpath = '{}/{}'.format(path, filename)
+            (fh, content_type, content_length) = utils.get_file_infos(file_fullpath)
+
+            url = "{}/{}/{}".format(self.get_storage_url(),
+                                    container,
+                                    filename)
+
+            data = fh.read()
+
+            headers = {
+                'Content-Type': content_type,
+                'X-Storage-Token': self.get_token(),
+                'Content-Length': content_length
+            }
+
+            request = urllib2.Request(url, data, headers)
+            request.get_method = lambda: 'PUT'
+
+            response = urllib2.urlopen(request)
+
+            if response.code == 201:
+                msg = '{} - OK'.format(file_fullpath)
+            else:
+                msg = '{} - FAIL (error {})'.format(file_fullpath, response.code)
+
+            if verbose:
+                print(msg)
