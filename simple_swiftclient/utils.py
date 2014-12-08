@@ -16,7 +16,7 @@ def list_dir(path):
             if not _ds + _fs:
                 dir_markers.append(_dir)
             else:
-                objs.extend([join(_dir, _f) for _f in _fs])
+                objs.extend([join(_dir, _f) for _f in _fs if not _f.startswith('.')])
 
     return objs
 

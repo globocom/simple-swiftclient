@@ -3,7 +3,7 @@ from __future__ import print_function
 import json
 import urllib2
 
-from simple_swiftclient import utils
+import utils
 
 
 class ClientException(Exception):
@@ -64,7 +64,7 @@ class Client(object):
                 endpoints = service.get('endpoints')
                 return endpoints[0].get('adminURL')
 
-        return None
+        raise ClientException('No endpoint found!')
 
     def upload(self, container, path, verbose=True):
         if path[-1] == '/':
@@ -74,8 +74,8 @@ class Client(object):
 
         for filename in files:
 
-            file_fullpath = '{}/{}'.format(path, filename)
-            (fh, content_type, content_length) = utils.get_file_infos(file_fullpath)
+            # file_fullpath = '{}/{}'.format(path, filename)
+            (fh, content_type, content_length) = utils.get_file_infos(filename)
 
             url = "{}/{}/{}".format(self.get_storage_url(),
                                     container,
@@ -95,9 +95,9 @@ class Client(object):
             response = urllib2.urlopen(request)
 
             if response.code == 201:
-                msg = '{} - OK'.format(file_fullpath)
+                msg = '{} - OK'.format(filename)
             else:
-                msg = '{} - FAIL (error {})'.format(file_fullpath, response.code)
+                msg = '{} - FAIL (error {})'.format(filename, response.code)
 
             if verbose:
                 print(msg)
