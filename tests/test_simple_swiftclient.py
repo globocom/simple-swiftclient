@@ -117,7 +117,7 @@ class TestSimpleSwiftClient(unittest.TestCase):
         cli._token = json.loads('{"issuedat": "2014-12-05T20:32:34.628326", "expires": "2014-12-05T21:32:34Z", "id": "1234", "tenant": {"description": "Tenant descr", "enabled": true, "id": "1234", "name": "tenant_name"}}')
         cli._service_catalog = json.loads('[{"endpoints": [{"adminURL": "https://adminurl/v1/AUTH_12345", "region": "RegionOne", "internalURL": "http://internalurl/", "id": "1234", "publicURL": "http://publicurl/"}], "endpoints_links": [], "type": "object-store", "name": "swift"}, {"endpoints": [{"adminURL": "https://adminurl/v1/AUTH_12345", "region": "RegionOne", "internalURL": "https://internalurl/v1/AUTH_12345", "id": "1234", "publicURL": "https://publicurl/v1/AUTH_12345"}], "endpoints_links": [], "type": "identity", "name": "keystone"}]')
 
-        cli.upload('container', 'tests/fixtures/', True)
+        cli.upload('container', 'tests/fixtures/', False)
 
         expected_url = "https://adminurl/v1/AUTH_12345/container/tests/fixtures/image.jpg"
         expected_headers = {
