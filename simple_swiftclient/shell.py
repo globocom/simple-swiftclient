@@ -27,11 +27,6 @@ import utils
 commands = ('upload')
 
 
-def immediate_exit(signum, frame):
-    stderr.write(" Aborted\n")
-    os_exit(2)
-
-
 def st_upload(options, args):
 
     values = {
