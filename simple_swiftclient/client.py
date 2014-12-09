@@ -70,7 +70,6 @@ class Client(object):
         if path[-1] == '/':
             path = path[:-1]
 
-        import ipdb;ipdb.set_trace()
         files = utils.list_dir(path)
 
         for filename in files:
