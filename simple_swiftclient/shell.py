@@ -44,7 +44,6 @@ def main(arguments=None):
     parser = OptionParser(version='%%prog %s' % version,
                           usage='''
 usage: %%prog [--version] [--help]
-             [--auth-version <auth_version>]
              [--os-username <auth-user-name>]
              [--os-password <auth-password>]
              [--os-tenant-name <auth-tenant-name>]

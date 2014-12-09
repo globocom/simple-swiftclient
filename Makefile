@@ -1,4 +1,4 @@
-.PHONY: clean setup run pep8 tests
+.PHONY: clean pep8 tests
 
 CWD="`pwd`"
 PROJECT_NAME = simple-swiftclient
@@ -16,3 +16,6 @@ pep8:
 tests: clean pep8
 	@echo "Running pep8 and all tests with coverage"
 	@py.test --cov-config .coveragerc --cov $(PROJECT_HOME) --cov-report term-missing
+
+pypi:
+	python ./setup.py sdist upload -r ipypi-local

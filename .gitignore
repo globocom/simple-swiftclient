@@ -3,3 +3,4 @@
 .coverage
 .env
 *.egg-info
+dist/
