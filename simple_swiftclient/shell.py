@@ -1,28 +1,19 @@
 #!/usr/bin/python -u
-# Copyright (c) 2010-2012 OpenStack, LLC.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-# implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+"""
+Simple swiftclient to manage objects (v0.0.1 - only upload).
+
+It was based on Openstack python-swiftclient, but using only python standard
+libraries.
+"""
 
 from __future__ import print_function
 
 from optparse import OptionParser, OptionGroup, SUPPRESS_HELP
-from os import environ, _exit as os_exit
-from sys import argv as sys_argv, exit, stderr
+from os import environ
+from sys import argv as sys_argv, exit
 
 from client import Client
 
-import utils
 
 commands = ('upload')
 
@@ -36,13 +27,12 @@ def st_upload(options, args):
         'tenant_name': options.os_tenant_name,
     }
 
-
     container = args[1]
     path = args[2]
 
     cli = Client(values)
-
     cli.upload(container, path)
+
 
 def main(arguments=None):
     if arguments:
@@ -50,15 +40,15 @@ def main(arguments=None):
     else:
         argv = sys_argv
 
-    version = '1.0'
+    version = '0.0.1'
     parser = OptionParser(version='%%prog %s' % version,
                           usage='''
 usage: %%prog [--version] [--help]
              [--auth-version <auth_version>]
-             [--os-username <auth-user-name>] [--os-password <auth-password>]
+             [--os-username <auth-user-name>]
+             [--os-password <auth-password>]
              [--os-tenant-name <auth-tenant-name>]
-             [--os-auth-url <auth-url>] [--os-auth-token <auth-token>]
-             [--os-storage-url <storage-url>] [--os-region-name <region-name>]
+             [--os-auth-url <auth-url>]
              <subcommand> [--help]
 
 Command-line interface to the OpenStack Swift API.

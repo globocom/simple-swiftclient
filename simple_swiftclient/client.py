@@ -46,7 +46,7 @@ class Client(object):
         try:
             json_resp = json.loads(resp)
         except ValueError:
-            raise ClientException('')
+            raise ClientException('Fail to authenticate')
 
         conn.close()
 
@@ -74,7 +74,6 @@ class Client(object):
 
         for filename in files:
 
-            # file_fullpath = '{}/{}'.format(path, filename)
             (fh, content_type, content_length) = utils.get_file_infos(filename)
 
             url = "{}/{}/{}".format(self.get_storage_url(),
