@@ -1,8 +1,8 @@
 A simple Openstack Swift Client to manage objects using python standard libraries. No extra packages required.
 
-## Why not use Openstack python-swiftclient?
+## Why not just use Openstack python-swiftclient?
 
-Openstack python-swiftclient requires a lot of extra packages to work properly. As long as this script was originally created to upload static files on Tsuru deploy process, we needed a light way to upload files.
+Openstack python-swiftclient requires extra packages to work properly. As long as this script was originally created to upload static files on Tsuru deploy process, we needed a light way to upload files.
 
 # Install
 
