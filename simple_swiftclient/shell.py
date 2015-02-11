@@ -41,6 +41,7 @@ def main(arguments=None):
         argv = sys_argv
 
     version = '0.0.2'
+
     parser = OptionParser(version='%%prog %s' % version,
                           usage='''
 usage: %%prog [--version] [--help]
@@ -67,30 +68,35 @@ Positional arguments:
     os_grp = OptionGroup(parser, "OpenStack authentication options")
     os_grp.add_option('--os-username',
                       metavar='<auth-user-name>',
-                      default=environ.get('OS_USERNAME'),
+                      default=environ.get('OS_USERNAME',
+                                          environ.get('SWIFT_USER')),
                       help='OpenStack username. Defaults to env[OS_USERNAME].')
     os_grp.add_option('--os_username',
                       help=SUPPRESS_HELP)
     os_grp.add_option('--os-password',
                       metavar='<auth-password>',
-                      default=environ.get('OS_PASSWORD'),
+                      default=environ.get('OS_PASSWORD',
+                                          environ.get('SWIFT_PASSWORD')),
                       help='OpenStack password. Defaults to env[OS_PASSWORD].')
     os_grp.add_option('--os-tenant-name',
                       metavar='<auth-tenant-name>',
-                      default=environ.get('OS_TENANT_NAME'),
+                      default=environ.get('OS_TENANT_NAME',
+                                          environ.get('SWIFT_TENANT')),
                       help='OpenStack tenant name. '
                            'Defaults to env[OS_TENANT_NAME].')
     os_grp.add_option('--os_tenant_name',
                       help=SUPPRESS_HELP)
     os_grp.add_option('--os-auth-url',
                       metavar='<auth-url>',
-                      default=environ.get('OS_AUTH_URL'),
+                      default=environ.get('OS_AUTH_URL',
+                                          environ.get('SWIFT_AUTH_URL')),
                       help='OpenStack auth URL. Defaults to env[OS_AUTH_URL].')
     os_grp.add_option('--os_auth_url',
                       help=SUPPRESS_HELP)
     os_grp.add_option('--os-storage-url',
                       metavar='<storage-url>',
-                      default=environ.get('OS_STORAGE_URL'),
+                      default=environ.get('OS_STORAGE_URL',
+                                          environ.get('SWIFT_ADMIN_URL')),
                       help='OpenStack storage URL. '
                            'Defaults to env[OS_STORAGE_URL]. '
                            'Overrides the storage url returned during auth. '
