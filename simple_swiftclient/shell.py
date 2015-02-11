@@ -40,7 +40,7 @@ def main(arguments=None):
     else:
         argv = sys_argv
 
-    version = '0.0.2'
+    version = '0.0.3'
 
     parser = OptionParser(version='%%prog %s' % version,
                           usage='''
