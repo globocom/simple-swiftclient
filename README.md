@@ -75,7 +75,7 @@ By default, simpleswift will look for specific environment variables if the requ
 
 ##SWIFT + TSURU
 
-If you use Tsuru (http://tsuru.io) and have a service that binds SWIFT to it, simpleswift can also help you! If you did not informed the required parameters and neither have the python-swiftclient variables, simple swift will use as last resource the following variables*:
+If you use Tsuru (http://tsuru.io) and have a service that binds SWIFT to it, simpleswift can also help you! If you did not informed the required parameters and neither have the python-swiftclient variables, simpleswift will use as last resource the following variables*:
 
 
 	SWIFT_USER
